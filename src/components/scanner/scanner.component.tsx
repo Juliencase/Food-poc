@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import { CameraOff } from 'lucide-react';
 import { BrowserMultiFormatReader } from '@zxing/library';
