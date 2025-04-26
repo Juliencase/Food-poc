@@ -30,7 +30,14 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 							if (result) {
 								setBarcode(result.getText());
 							}
-							if (err) {
+							if (
+								err &&
+								!(
+									err.name === 'NotFoundException' ||
+									err.name === 'ChecksumException' ||
+									err.name === 'FormatException'
+								)
+							) {
 								console.error('Erreur:', err);
 								setError(err);
 							}
