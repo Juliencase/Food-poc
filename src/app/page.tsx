@@ -3,6 +3,7 @@ import React, {useRef, useEffect, useState} from 'react';
 import {BrowserMultiFormatReader, NotFoundException} from '@zxing/library';
 import {NutrimentsCardComponent} from "@/src/components/nutriments/nutriments-card.component";
 import {Product} from "@/src/models/product";
+import {LoginComponent} from "@/src/components/login/login.component";
 
 
 const BarcodeScanner = () => {
@@ -101,7 +102,7 @@ const BarcodeScanner = () => {
             {isLoading && <p>Chargement...</p>}
 
             {error && <p className="error">{error}</p>}
-
+            <LoginComponent></LoginComponent>
             {product && (
                 <div className="product-info">
                     <h2>{product.product_name_fr}</h2>
@@ -126,6 +127,7 @@ const BarcodeScanner = () => {
                     >
                         Scanner un nouveau produit
                     </button>
+
                 </div>
             )}
         </div>
