@@ -1,8 +1,28 @@
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from "react";
+import {onAuthChange, signInWithGoogle, signOutGoogle} from "@/lib/firebase/firebaseConfig";
+import {FirebaseUser} from "@/src/models/firebaseUser";
 
 export const LoginComponent = () => {
+	const [user, setUser] = useState<FirebaseUser>();
+
+	useEffect(() => {
+		const unsubscribe = onAuthChange(setUser);
+		return () => unsubscribe();
+	}, []);
+
+	console.log(user);
+	if (user) {
+		return (
+			<div>
+				<p>Bienvenue {user.displayName}</p>
+				<button onClick={signOutGoogle}>Se déconnecter</button>
+			</div>
+		);
+	}
+
 	return (
-		<Button>
+		<Button onClick={signInWithGoogle}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				x="0px"
