@@ -1,57 +1,15 @@
 'use client';
-import React, { useRef, useEffect, useState } from 'react';
-import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import React, { useEffect, useState } from 'react';
 import { NutrimentsCardComponent } from '@/src/components/nutriments/nutriments-card.component';
 import { Product } from '@/src/models/product';
 import { LoginComponent } from '@/src/components/login/login.component';
+import { ScannerComponent } from '@/src/components/scanner/scanner.component';
 
 const BarcodeScanner = () => {
-	const videoRef = useRef<HTMLVideoElement>(null);
-	const codeReader = useRef<BrowserMultiFormatReader | null>(null);
 	const [barcode, setBarCode] = useState<string>();
 	const [product, setProduct] = useState<Product | null>(null);
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-
-	// Initialisation du scanner
-	useEffect(() => {
-		codeReader.current = new BrowserMultiFormatReader();
-
-		const startScanning = async () => {
-			if (videoRef.current) {
-				try {
-					await codeReader.current!.decodeFromConstraints(
-						{
-							audio: false,
-							video: { facingMode: 'environment' },
-						},
-						videoRef.current,
-						(result, err) => {
-							if (result) {
-								setBarCode(result.getText());
-							}
-							if (err && !(err instanceof NotFoundException)) {
-								console.error('Erreur de décodage:', err);
-							}
-						}
-					);
-				} catch (err) {
-					console.error("Erreur d'accès à la caméra:", err);
-				}
-			}
-		};
-
-		startScanning();
-
-		return () => {
-			codeReader.current?.reset();
-			if (videoRef.current?.srcObject) {
-				(videoRef.current.srcObject as MediaStream)
-					.getTracks()
-					.forEach((track) => track.stop());
-			}
-		};
-	}, []);
 
 	// Appel API OpenFoodFacts
 	useEffect(() => {
@@ -88,16 +46,7 @@ const BarcodeScanner = () => {
 
 	return (
 		<div>
-			<video
-				ref={videoRef}
-				style={{
-					width: '100%',
-					maxWidth: '600px',
-					display: barcode ? 'none' : 'block',
-				}}
-				muted
-				playsInline
-			/>
+			<ScannerComponent setBarcode={setBarCode} />
 
 			{isLoading && <p>Chargement...</p>}
 
