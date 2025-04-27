@@ -225,52 +225,88 @@ export interface Packaging {
 	shape: { id: string };
 }
 
+// export interface Nutriments {
+// 	carbohydrates: number;
+// 	carbohydrates_100g: number;
+// 	carbohydrates_serving: number;
+// 	carbohydrates_unit: string;
+// 	carbohydrates_value: number;
+// 	energy: number;
+// 	energy_100g: number;
+// 	energy_serving: number;
+// 	energy_unit: string;
+// 	energy_value: number;
+// 	'energy-kcal': number;
+// 	'energy-kcal_100g': number;
+// 	'energy-kcal_unit': number;
+// 	'energy-kcal_value': number;
+// 	'energy-kcal_value_computed': number;
+// 	fat: number;
+// 	fat_100g: number;
+// 	fat_serving: number;
+// 	fat_unit: string;
+// 	fat_value: number;
+// 	fiber: number;
+// 	fiber_100g: number;
+// 	fiber_serving: number;
+// 	fiber_unit: string;
+// 	fiber_value: number;
+// 	proteins: number;
+// 	proteins_100g: number;
+// 	proteins_serving: number;
+// 	proteins_unit: string;
+// 	proteins_value: number;
+// 	salt: number;
+// 	salt_100g: number;
+// 	salt_serving: number;
+// 	salt_unit: string;
+// 	salt_value: number;
+// 	saturated_fat: number;
+// 	saturated_fat_100g: number;
+// 	saturated_fat_serving: number;
+// 	saturated_fat_unit: string;
+// 	saturated_fat_value: number;
+// 	sodium: number;
+// 	sodium_100g: number;
+// 	sodium_serving: number;
+// 	sodium_unit: string;
+// 	sodium_value: number;
+// 	sugars: number;
+// 	sugars_100g: number;
+// 	sugars_serving: number;
+// 	sugars_unit: string;
+// 	sugars_value: number;
+// }
+
 export interface Nutriments {
-	carbohydrates: number;
-	carbohydrates_100g: number;
-	carbohydrates_serving: number;
-	carbohydrates_unit: string;
-	carbohydrates_value: number;
-	energy: number;
-	energy_100g: number;
-	energy_serving: number;
-	energy_unit: string;
-	energy_value: number;
-	fat: number;
-	fat_100g: number;
-	fat_serving: number;
-	fat_unit: string;
-	fat_value: number;
-	fiber: number;
-	fiber_100g: number;
-	fiber_serving: number;
-	fiber_unit: string;
-	fiber_value: number;
-	proteins: number;
-	proteins_100g: number;
-	proteins_serving: number;
-	proteins_unit: string;
-	proteins_value: number;
-	salt: number;
-	salt_100g: number;
-	salt_serving: number;
-	salt_unit: string;
-	salt_value: number;
-	saturated_fat: number;
-	saturated_fat_100g: number;
-	saturated_fat_serving: number;
-	saturated_fat_unit: string;
-	saturated_fat_value: number;
-	sodium: number;
-	sodium_100g: number;
-	sodium_serving: number;
-	sodium_unit: string;
-	sodium_value: number;
-	sugars: number;
-	sugars_100g: number;
-	sugars_serving: number;
-	sugars_unit: string;
-	sugars_value: number;
+	energy_100g: number; // kJ pour 100g
+	'energy-kcal_100g': number; // kcal pour 100g
+	fat_100g: number; // matières grasses pour 100g
+	'saturated-fat_100g': number; // acides gras saturés pour 100g
+	carbohydrates_100g: number; // glucides pour 100g
+	sugars_100g: number; // sucres pour 100g
+	proteins_100g: number; // protéines pour 100g
+	salt_100g: number; // sel pour 100g
+	fiber_100g: number; // fibres pour 100g
+
+	energy_serving: number; // kJ par portion (15g)
+	'energy-kcal_serving': number; // kcal par portion (15g)
+	fat_serving: number; // matières grasses par portion
+	'saturated-fat_serving': number; // acides gras saturés par portion
+	carbohydrates_serving: number; // glucides par portion
+	sugars_serving: number; // sucres par portion
+	proteins_serving: number; // protéines par portion
+	salt_serving: number; // sel par portion
+
+	energy_unit: string; // "kJ"
+	'energy-kcal_unit': string; // "kcal"
+	fat_unit: string; // "g"
+	'saturated-fat_unit': string; // "g"
+	carbohydrates_unit: string; // "g"
+	sugars_unit: string; // "g"
+	proteins_unit: string; // "g"
+	salt_unit: string; // "g"
+	fiber_unit: string; // "g"
 }
 
 export interface EcoscoreData {

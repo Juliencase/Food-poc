@@ -1,7 +1,11 @@
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from "react";
-import {onAuthChange, signInWithGoogle, signOutGoogle} from "@/lib/firebase/firebaseConfig";
-import {FirebaseUser} from "@/src/models/firebaseUser";
+import { useEffect, useState } from 'react';
+import {
+	onAuthChange,
+	signInWithGoogle,
+	signOutGoogle,
+} from '@/lib/firebase/firebaseConfig';
+import { FirebaseUser } from '@/src/models/firebaseUser';
 
 export const LoginComponent = () => {
 	const [user, setUser] = useState<FirebaseUser>();
@@ -11,12 +15,13 @@ export const LoginComponent = () => {
 		return () => unsubscribe();
 	}, []);
 
-	console.log(user);
 	if (user) {
 		return (
 			<div>
 				<p>Bienvenue {user.displayName}</p>
-				<Button variant="destructive" onClick={signOutGoogle}>Se déconnecter</Button>
+				<Button variant="destructive" onClick={signOutGoogle}>
+					Se déconnecter
+				</Button>
 			</div>
 		);
 	}
