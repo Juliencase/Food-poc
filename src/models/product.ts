@@ -271,7 +271,6 @@ export interface Nutriments {
 	sugars_serving: number;
 	sugars_unit: string;
 	sugars_value: number;
-	// ... Ajoute d'autres champs si besoin
 }
 
 export interface EcoscoreData {

@@ -69,7 +69,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 					<CameraOff />
 				</div>
 			) : (
-				<video ref={videoRef} className="w-full" muted playsInline />
+				<video ref={videoRef} className="aspect-video" muted playsInline />
 			)}
 		</div>
 	);

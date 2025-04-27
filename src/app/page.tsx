@@ -4,6 +4,7 @@ import { NutrimentsCardComponent } from '@/src/components/nutriments/nutriments-
 import { Product } from '@/src/models/product';
 import { LoginComponent } from '@/src/components/login/login.component';
 import { ScannerComponent } from '@/src/components/scanner/scanner.component';
+import { Button } from '@/components/ui/button';
 
 const BarcodeScanner = () => {
 	const [barcode, setBarCode] = useState<string>();
@@ -46,42 +47,28 @@ const BarcodeScanner = () => {
 
 	return (
 		<div>
-			<ScannerComponent setBarcode={setBarCode} />
+			{!barcode ? (
+				<ScannerComponent setBarcode={setBarCode} />
+			) : (
+				<Button
+					onClick={() => {
+						setBarCode(undefined);
+						setProduct(null);
+					}}
+					className="m-2"
+				>
+					Scanner un nouveau produit
+				</Button>
+			)}
 
 			{isLoading && <p>Chargement...</p>}
 
 			{error && <p className="error">{error}</p>}
-			<LoginComponent></LoginComponent>
+
 			{product && (
-				<div className="product-info">
-					<h2>{product.product_name_fr}</h2>
-					<img
-						src={product.image_url}
-						alt={product.product_name_fr}
-						style={{ maxWidth: '200px' }}
-					/>
-					<p>Marque : {product.brands}</p>
-					{product.nutriscore_grade && (
-						<p>Nutri-Score : {product.nutriscore_grade.toUpperCase()}</p>
-					)}
-					<h3>Ingrédients :</h3>
-					<p>
-						{product.ingredients_text_fr ||
-							product.ingredients_text ||
-							'Non spécifié'}
-					</p>
-					<NutrimentsCardComponent product={product}></NutrimentsCardComponent>
-					<button
-						onClick={() => {
-							setBarCode(undefined);
-							setProduct(null);
-						}}
-						style={{ marginTop: '1rem' }}
-					>
-						Scanner un nouveau produit
-					</button>
-				</div>
+				<NutrimentsCardComponent product={product}></NutrimentsCardComponent>
 			)}
+			<LoginComponent></LoginComponent>
 		</div>
 	);
 };

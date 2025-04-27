@@ -16,7 +16,7 @@ export const LoginComponent = () => {
 		return (
 			<div>
 				<p>Bienvenue {user.displayName}</p>
-				<button onClick={signOutGoogle}>Se déconnecter</button>
+				<Button variant="destructive" onClick={signOutGoogle}>Se déconnecter</Button>
 			</div>
 		);
 	}
