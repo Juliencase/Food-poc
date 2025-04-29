@@ -14,11 +14,6 @@ export const LoginComponent = () => {
 		const unsubscribe = onAuthChange(setUser);
 		return () => unsubscribe();
 	}, []);
-
-	console.log(process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-	console.log(process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN);
-	console.log(process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID);
-	console.log(process.env.NEXT_PUBLIC_FIREBASE_APP_ID);
 	
 	if (user) {
 		return (
