@@ -8,7 +8,7 @@
 		"start": "next start",
 		"lint": "eslint . --fix --max-warnings=3",
 		"format": "prettier . --write",
-		"prepare": "if [ \"$NODE_ENV\" != \"production\" ]; then husky install; fi"
+		"prepare": ""
 	},
 	"dependencies": {
 		"@radix-ui/react-popover": "^1.1.11",
