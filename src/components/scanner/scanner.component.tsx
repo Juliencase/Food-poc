@@ -2,7 +2,11 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { CameraOff } from 'lucide-react';
-import { BrowserMultiFormatReader } from '@zxing/library';
+import {
+	BrowserMultiFormatReader,
+	BarcodeFormat,
+	DecodeHintType,
+} from '@zxing/library';
 
 interface ScannerComponentProps {
 	setBarcode: (barcode: string) => void;
@@ -14,8 +18,27 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 	const [error, setError] = useState<any | null>(null);
 
 	useEffect(() => {
+		navigator.mediaDevices
+			.getUserMedia({ video: true })
+			.then((stream) => {
+				console.log('Caméra accessible:', stream);
+			})
+			.catch((err) => {
+				console.error('Caméra inaccessible:', err);
+			});
+
 		const current = videoRef.current;
-		codeReader.current = new BrowserMultiFormatReader();
+
+		const hints = new Map();
+		hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+			BarcodeFormat.CODE_128,
+			BarcodeFormat.EAN_13,
+			BarcodeFormat.EAN_8,
+			BarcodeFormat.CODE_39,
+			BarcodeFormat.UPC_A,
+		]);
+
+		codeReader.current = new BrowserMultiFormatReader(hints, 500);
 
 		let isActive = true;
 
@@ -43,7 +66,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 									err.name === 'FormatException'
 								)
 							) {
-								console.error('Erreur:', err.name);
+								console.error('Erreur:', err);
 								setError(err);
 							}
 						}
