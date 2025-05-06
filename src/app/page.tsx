@@ -1,10 +1,10 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import { NutrimentsCardComponent } from '@/src/components/nutriments/nutriments-card.component';
 import { Product } from '@/src/models/product';
 import { LoginComponent } from '@/src/components/login/login.component';
 import { ScannerComponent } from '@/src/components/scanner/scanner.component';
-import { Button } from '@/components/ui/button';
 
 const BarcodeScanner = () => {
 	const [barcode, setBarCode] = useState<string>();
@@ -47,19 +47,7 @@ const BarcodeScanner = () => {
 
 	return (
 		<div>
-			{!barcode ? (
-				<ScannerComponent setBarcode={setBarCode} />
-			) : (
-				<Button
-					onClick={() => {
-						setBarCode(undefined);
-						setProduct(null);
-					}}
-					className="m-2"
-				>
-					Scanner un nouveau produit
-				</Button>
-			)}
+			<ScannerComponent setBarcode={setBarCode} />
 
 			{isLoading && <p>Chargement...</p>}
 
