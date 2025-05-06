@@ -2,11 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { CameraOff } from 'lucide-react';
-import {
-	BrowserMultiFormatReader,
-	BarcodeFormat,
-	DecodeHintType,
-} from '@zxing/library';
+import { BrowserMultiFormatReader } from '@zxing/library';
 import { Button } from '@/components/ui/button';
 
 interface ScannerComponentProps {
