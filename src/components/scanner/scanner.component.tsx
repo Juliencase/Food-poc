@@ -2,7 +2,11 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { CameraOff } from 'lucide-react';
-import { BrowserMultiFormatReader } from '@zxing/library';
+import {
+	BrowserMultiFormatReader,
+	BarcodeFormat,
+	DecodeHintType,
+} from '@zxing/library';
 import { Button } from '@/components/ui/button';
 
 interface ScannerComponentProps {
@@ -34,7 +38,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 		if (!current) return;
 
 		try {
-			const stream = await navigator.mediaDevices.getUserMedia({
+			current.srcObject = await navigator.mediaDevices.getUserMedia({
 				video: {
 					facingMode: 'environment',
 					width: { ideal: 1280 },
@@ -42,8 +46,6 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 				},
 				audio: false,
 			});
-
-			current.srcObject = stream;
 
 			current.onloadedmetadata = () => {
 				current
@@ -83,7 +85,15 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 
 	useEffect(() => {
 		if (!codeReader.current) {
-			codeReader.current = new BrowserMultiFormatReader();
+			const hints = new Map();
+			hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+				BarcodeFormat.CODE_128,
+				BarcodeFormat.EAN_13,
+				BarcodeFormat.EAN_8,
+				BarcodeFormat.CODE_39,
+			]);
+
+			codeReader.current = new BrowserMultiFormatReader(hints);
 		}
 
 		// Nettoyage au démontage du composant
