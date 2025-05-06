@@ -17,6 +17,8 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 		const current = videoRef.current;
 		codeReader.current = new BrowserMultiFormatReader();
 
+		let isActive = true;
+
 		const startScanning = async () => {
 			if (current) {
 				try {
@@ -27,8 +29,11 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 						},
 						current,
 						(result, err) => {
+							if (!isActive) return;
 							if (result) {
 								setBarcode(result.getText());
+								codeReader.current?.reset();
+								isActive = false;
 							}
 							if (
 								err &&
@@ -38,7 +43,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 									err.name === 'FormatException'
 								)
 							) {
-								console.error('Erreur:', err);
+								console.error('Erreur:', err.name);
 								setError(err);
 							}
 						}
@@ -53,6 +58,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 		startScanning();
 
 		return () => {
+			isActive = false;
 			codeReader.current?.reset();
 			if (current?.srcObject) {
 				(current.srcObject as MediaStream)
@@ -67,6 +73,9 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			{error ? (
 				<div>
 					<CameraOff />
+					<div className="text-red-500 text-xs">
+						{error.message || String(error)}
+					</div>
 				</div>
 			) : (
 				<video ref={videoRef} className="aspect-video" muted playsInline />
