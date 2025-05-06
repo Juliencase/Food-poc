@@ -65,12 +65,14 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 							) {
 								console.error('Erreur:', err);
 								setError(err);
+								stopScanner();
 							}
 						});
 					})
 					.catch((err) => {
 						console.error('Erreur lors du démarrage de la vidéo:', err);
 						setError(err);
+						stopScanner();
 					});
 			};
 		} catch (err) {
