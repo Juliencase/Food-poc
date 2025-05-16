@@ -86,7 +86,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 	useEffect(() => {
 		if (!codeReader.current) {
 			const hints = new Map();
-			hints.set(DecodeHintType.POSSIBLE_FORMATS, [
+			hints.set(DecodeHintType.TRY_HARDER, [
 				BarcodeFormat.CODE_128,
 				BarcodeFormat.EAN_13,
 				BarcodeFormat.EAN_8,
@@ -120,6 +120,9 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 					<CameraOff />
 					<div className="text-red-500 text-xs">
 						{error.message || String(error)}
+						<Button onClick={startScanner} className="m-2">
+							Scanner un produit
+						</Button>
 					</div>
 				</div>
 			) : (
