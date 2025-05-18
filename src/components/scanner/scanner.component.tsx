@@ -51,6 +51,10 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			}
 			const deviceId = devices[0].deviceId;
 
+			console.log('Caméras disponibles :', devices);
+
+			console.log(codeReader.current);
+
 			// Démarre le scan sur l'élément vidéo avec l'id "barcode-video"
 			codeReader.current.decodeFromVideoDevice(
 				deviceId,
