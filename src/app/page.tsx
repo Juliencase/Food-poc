@@ -56,7 +56,7 @@ const BarcodeScanner = () => {
 			{product && (
 				<NutrimentsCardComponent product={product}></NutrimentsCardComponent>
 			)}
-			<LoginComponent></LoginComponent>
+			{/*<LoginComponent></LoginComponent>*/}
 		</div>
 	);
 };
