@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { NutrimentsCardComponent } from '@/src/components/nutriments/nutriments-card.component';
 import { Product } from '@/src/models/product';
-// import { LoginComponent } from '@/src/components/login/login.component';
+import { LoginComponent } from '@/src/components/login/login.component';
 import { ScannerComponent } from '@/src/components/scanner/scanner.component';
 
 const BarcodeScanner = () => {
@@ -56,7 +56,7 @@ const BarcodeScanner = () => {
 			{product && (
 				<NutrimentsCardComponent product={product}></NutrimentsCardComponent>
 			)}
-			{/*<LoginComponent></LoginComponent>*/}
+			<LoginComponent></LoginComponent>
 		</div>
 	);
 };

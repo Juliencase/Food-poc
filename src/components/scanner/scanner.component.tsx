@@ -25,6 +25,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 
 	const stopScanner = () => {
 		setIsScanning(false);
+
 		if (videoRef.current?.srcObject) {
 			(videoRef.current.srcObject as MediaStream)
 				.getTracks()
@@ -51,6 +52,11 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 				current
 					.play()
 					.then(() => {
+						console.log(codeReader.current);
+						codeReader.current?.listVideoInputDevices().then((devices) => {
+							console.log('Devices:', devices);
+						});
+
 						codeReader.current?.decodeContinuously(current, (result, err) => {
 							if (result) {
 								setBarcode(result.getText());
@@ -109,9 +115,9 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 
 	useEffect(() => {
 		if (isScanning) {
-			startScanning();
+			startScanning().then();
 		}
-	}, [isScanning]);
+	}, [startScanning, isScanning]);
 
 	return (
 		<div className="bg-stone-100 flex items-center justify-center p-2">
