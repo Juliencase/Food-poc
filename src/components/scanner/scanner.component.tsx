@@ -41,42 +41,20 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 	const startScanning = useCallback(async () => {
 		if (!codeReader.current) return;
 
+		const videoElement = document.getElementById(
+			'barcode-video'
+		) as HTMLVideoElement;
+		if (!videoElement) {
+			setError(new Error('Élément vidéo introuvable'));
+			stopScanner();
+			return;
+		}
+
 		try {
-			// Récupère la liste des caméras disponibles
-			const devices = await codeReader.current.listVideoInputDevices();
-			if (devices.length === 0) {
-				setError(new Error('Aucune caméra détectée'));
-				stopScanner();
-				return;
-			}
-			const deviceId = devices[0].deviceId;
-
-			console.log('Caméras disponibles :', devices);
-
-			console.log(codeReader.current);
-
-			// Démarre le scan sur l'élément vidéo avec l'id "barcode-video"
-			await codeReader.current.decodeFromVideoDevice(
-				deviceId,
-				'barcode-video',
-				(result, err) => {
-					if (result) {
-						setBarcode(result.getText());
-						stopScanner();
-					}
-					if (
-						err &&
-						![
-							'NotFoundException',
-							'ChecksumException',
-							'FormatException',
-						].includes(err.name)
-					) {
-						setError(err);
-						stopScanner();
-					}
-				}
-			);
+			const result =
+				await codeReader.current.decodeFromVideoElement(videoElement);
+			setBarcode(result.getText());
+			stopScanner();
 		} catch (err) {
 			setError(err);
 			stopScanner();
@@ -110,7 +88,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			stopScanner();
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isScanning]);
+	}, [isScanning, startScanning]);
 
 	return (
 		<div className="bg-stone-100 flex flex-col items-center justify-center p-4 rounded-md">
