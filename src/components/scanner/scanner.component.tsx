@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import Webcam from 'react-webcam';
-import { CameraOff } from 'lucide-react';
+import { CameraOff, Barcode, Check, X } from 'lucide-react';
 import {
 	BrowserMultiFormatReader,
 	BarcodeFormat,
@@ -78,7 +78,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			codeReader.current?.reset();
 			stopScanner();
 		};
-	}, []);
+	}, [stopScanner]);
 
 	// Lance le scan quand isScanning passe à true
 	useEffect(() => {
@@ -87,8 +87,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 		} else {
 			stopScanner();
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [isScanning, startScanning]);
+	}, [isScanning, startScanning, stopScanner]);
 
 	return (
 		<div className="bg-stone-100 flex flex-col items-center justify-center p-4 rounded-md">
@@ -105,13 +104,24 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			) : (
 				<>
 					{isScanning && (
-						<Webcam
-							ref={webcamRef}
-							id="barcode-video"
-							className="aspect-video border border-gray-400 rounded"
-							muted
-							playsInline
-						/>
+						<>
+							<Webcam
+								ref={webcamRef}
+								id="barcode-video"
+								className="aspect-video border border-gray-400 rounded"
+								muted
+								playsInline
+							/>
+							<p>
+								Placez le code-barres <b>horizontalement</b>
+							</p>
+							<div className="flex">
+								<Barcode className="ml-1" />{' '}
+								<Check className="text-green-600" />
+								<Barcode className="ml-1 rotate-90" />{' '}
+								<X className="text-red-600" />
+							</div>
+						</>
 					)}
 					{!isScanning && (
 						<Button onClick={startScanner} className="m-2">

@@ -5,12 +5,9 @@ import { NutrimentsCardComponent } from '@/src/components/nutriments/nutriments-
 import { Product } from '@/src/models/product';
 import { LoginComponent } from '@/src/components/login/login.component';
 import { ScannerComponent } from '@/src/components/scanner/scanner.component';
-// import BarcodeScanner2 from 'react-qr-barcode-scanner';
 
 const BarcodeScanner = () => {
 	const [barcode, setBarCode] = useState<string>();
-	// const [data, setData] = useState('Not Found');
-
 	const [product, setProduct] = useState<Product | null>(null);
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -51,20 +48,6 @@ const BarcodeScanner = () => {
 	return (
 		<div>
 			<ScannerComponent setBarcode={setBarCode} />
-
-			{/*<>*/}
-			{/*	<BarcodeScanner2*/}
-			{/*		width={500}*/}
-			{/*		height={500}*/}
-			{/*		onUpdate={(err, result) => {*/}
-			{/*			if (result) {*/}
-			{/*				setData(result.getText());*/}
-			{/*				setBarCode(result.getText());*/}
-			{/*			} else setData('Not Found');*/}
-			{/*		}}*/}
-			{/*	/>*/}
-			{/*	<p>{data}</p>*/}
-			{/*</>*/}
 
 			{isLoading && <p>Chargement...</p>}
 
