@@ -111,6 +111,9 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 								className="aspect-video border border-gray-400 rounded"
 								muted
 								playsInline
+								videoConstraints={{
+									facingMode: 'environment',
+								}}
 							/>
 							<p>
 								Placez le code-barres <b>horizontalement</b>
