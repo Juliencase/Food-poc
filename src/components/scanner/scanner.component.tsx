@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import Webcam from 'react-webcam';
 import { CameraOff } from 'lucide-react';
 import {
 	BrowserMultiFormatReader,
@@ -14,7 +15,7 @@ interface ScannerComponentProps {
 }
 
 export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
-	const videoRef = useRef<HTMLVideoElement>(null);
+	const webcamRef = useRef<Webcam>(null);
 	const codeReader = useRef<BrowserMultiFormatReader | null>(null);
 	const [error, setError] = useState<any | null>(null);
 	const [isScanning, setIsScanning] = useState(false);
@@ -29,11 +30,10 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 	const stopScanner = useCallback(() => {
 		setIsScanning(false);
 		codeReader.current?.reset();
-		if (videoRef.current?.srcObject) {
-			(videoRef.current.srcObject as MediaStream)
+		if (webcamRef.current?.video?.srcObject) {
+			(webcamRef.current.video.srcObject as MediaStream)
 				.getTracks()
 				.forEach((track) => track.stop());
-			videoRef.current.srcObject = null;
 		}
 	}, []);
 
@@ -56,7 +56,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			console.log(codeReader.current);
 
 			// Démarre le scan sur l'élément vidéo avec l'id "barcode-video"
-			codeReader.current.decodeFromVideoDevice(
+			await codeReader.current.decodeFromVideoDevice(
 				deviceId,
 				'barcode-video',
 				(result, err) => {
@@ -98,12 +98,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 		}
 		return () => {
 			codeReader.current?.reset();
-			if (videoRef.current?.srcObject) {
-				(videoRef.current.srcObject as MediaStream)
-					.getTracks()
-					.forEach((track) => track.stop());
-				videoRef.current.srcObject = null;
-			}
+			stopScanner();
 		};
 	}, []);
 
@@ -132,8 +127,8 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 			) : (
 				<>
 					{isScanning && (
-						<video
-							ref={videoRef}
+						<Webcam
+							ref={webcamRef}
 							id="barcode-video"
 							className="aspect-video border border-gray-400 rounded"
 							muted
