@@ -145,6 +145,7 @@ export interface Product {
 	nutrition_grades: string;
 	nutrition_grades_tags: string[];
 	nutrition_score_beverage: number;
+	origin: string;
 	origins: string;
 	origins_hierarchy: string[];
 	origins_lc: string;

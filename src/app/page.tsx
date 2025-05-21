@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { NutrimentsCardComponent } from '@/src/components/nutriments/nutriments-card.component';
 import { Product } from '@/src/models/product';
 import { LoginComponent } from '@/src/components/login/login.component';
 import { ScannerComponent } from '@/src/components/scanner/scanner.component';
+import { ProductComponent } from '@/src/components/products/product.component';
 
 const BarcodeScanner = () => {
 	const [barcode, setBarCode] = useState<string>();
@@ -53,9 +53,8 @@ const BarcodeScanner = () => {
 
 			{error && <p className="error">{error}</p>}
 
-			{product && (
-				<NutrimentsCardComponent product={product}></NutrimentsCardComponent>
-			)}
+			{product && <ProductComponent product={product}></ProductComponent>}
+
 			<LoginComponent></LoginComponent>
 		</div>
 	);

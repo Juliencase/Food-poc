@@ -20,13 +20,13 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 	const [error, setError] = useState<any | null>(null);
 	const [isScanning, setIsScanning] = useState(false);
 
-	// Fonction pour démarrer le scan
+	// Démarrer le scan
 	const startScanner = () => {
 		setError(null);
 		setIsScanning(true);
 	};
 
-	// Fonction pour arrêter le scan
+	// Arrêter le scan
 	const stopScanner = useCallback(() => {
 		setIsScanning(false);
 		codeReader.current?.reset();
@@ -37,7 +37,7 @@ export const ScannerComponent = ({ setBarcode }: ScannerComponentProps) => {
 		}
 	}, []);
 
-	// Fonction principale de scan
+	// Scanner
 	const startScanning = useCallback(async () => {
 		if (!codeReader.current) return;
 

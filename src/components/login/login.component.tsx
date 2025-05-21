@@ -14,7 +14,7 @@ export const LoginComponent = () => {
 		const unsubscribe = onAuthChange(setUser);
 		return () => unsubscribe();
 	}, []);
-	
+
 	if (user) {
 		return (
 			<div>
@@ -27,7 +27,7 @@ export const LoginComponent = () => {
 	}
 
 	return (
-		<Button onClick={signInWithGoogle}>
+		<Button variant="secondary" onClick={signInWithGoogle} className="m-2">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				x="0px"
